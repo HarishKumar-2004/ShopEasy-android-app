@@ -20,7 +20,7 @@ class DetailActivity2 : AppCompatActivity() {
         rateButton = findViewById(R.id.rateButton2)
 
         back.setOnClickListener {
-            val i = Intent(this,DashboardScreenActivity::class.java)
+            val i = Intent(this,WishlistActivity::class.java)
             startActivity(i)
         }
 

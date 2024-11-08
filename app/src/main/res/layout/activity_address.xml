@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddressActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/purple_Dark"/>
+
+        <ImageView
+            android:id="@+id/backArrowImage"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:background="@color/white"
+            android:clickable="true"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="6dp"
+            android:text="My Address"
+            android:textColor="@color/white"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/address_input"
+        android:layout_width="385dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter address"
+        android:background="@drawable/rounded_edit_text"
+        android:padding="12dp"
+        android:textColor="#000000"
+        android:textColorHint="#9E9E9E"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="8dp"
+        android:drawableStart="@drawable/location"
+        android:drawablePadding="15dp"
+        android:elevation="4dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:padding="10dp">
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="480dp" />
+
+    </LinearLayout>
+
+
+    <!-- Confirm Address Button -->
+    <Button
+        android:id="@+id/confirm_address_button"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/purple_Dark"
+        android:text="Confirm Address"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        android:padding="12dp"
+        android:layout_marginTop="10dp"
+        android:elevation="4dp" />
+
+</LinearLayout>

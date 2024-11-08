@@ -61,7 +61,7 @@
                     android:layout_height="260dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="100dp"
-                    android:src="@drawable/item_2" />
+                    android:src="@drawable/perfume3" />
 
 
             </RelativeLayout>
@@ -81,7 +81,7 @@
                     android:textStyle="bold"
                     android:layout_marginStart="15dp"
                     android:textColor="@color/black"
-                    android:text="Smart Watch" />
+                    android:text="Perfume" />
 
                 <TextView
                     android:id="@+id/textView18"
@@ -92,7 +92,7 @@
                     android:textStyle="bold"
                     android:layout_marginEnd="20dp"
                     android:textColor="@color/black"
-                    android:text="75$" />
+                    android:text="50$" />
 
             </LinearLayout>
 
@@ -112,7 +112,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:textSize="20sp"
-                android:text="Brand : Apple\n\nModel : Watch Series 7\n\nColor : Black,Navy Blue\n\nAvailable Sizes : 30mm,32mm\n\nDiscount : 20%" />
+                android:text="Brand : Shalimar\n\nModel : Premium perfume for Women\n\nNotes : Citrus, Floral\n\nAvailable Sizes : 50ml, 150ml\n\nDiscount : 10%" />
 
             <View
                 android:layout_width="match_parent"
@@ -133,11 +133,11 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:numStars="5"
-                android:rating="2.5"
+                android:rating="4"
                 android:secondaryProgressTint="#D63333"
                 android:progressTint="#D63333"
                 android:progressBackgroundTint="#F4E0EB"
-                android:stepSize="0.5"/>
+                android:stepSize="0.1"/>
 
             <Button
                 android:id="@+id/rateButton2"

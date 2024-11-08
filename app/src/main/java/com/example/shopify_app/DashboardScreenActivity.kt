@@ -12,11 +12,18 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.getSystemService
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class DashboardScreenActivity : AppCompatActivity() {
 
@@ -26,18 +33,21 @@ class DashboardScreenActivity : AppCompatActivity() {
     private lateinit var pendingIntent: PendingIntent
     private val notificationId = 103
 
-    lateinit var card1 : CardView
-    lateinit var card2 : CardView
-    lateinit var card3 : CardView
-    lateinit var navBar : BottomNavigationView
+    private lateinit var fabMenu : FloatingActionButton
+    private lateinit var fabWishlist : FloatingActionButton
+    private lateinit var fabCart : FloatingActionButton
+    private lateinit var fabProfile : FloatingActionButton
     lateinit var textV : TextView
+
+    private lateinit var rv : RecyclerView
+    private lateinit var adp : DashboardAdapter
+    private lateinit var list :MutableList<DashboardModel>
 
     private lateinit var sharedpreferences: SharedPreferences
     private var username: String? = null
 
     val SHARED_PREFS = "mySharedPref"
     val EMAIL_KEY = "email_key"
-    val PASSWORD_KEY = "password_key"
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,49 +60,72 @@ class DashboardScreenActivity : AppCompatActivity() {
         textV = findViewById(R.id.textView3)
         textV.text = username
 
-        card1 = findViewById(R.id.card1)
-        card2 = findViewById(R.id.card2)
-        card3 = findViewById(R.id.card3)
+        rv = findViewById(R.id.recyclerView)
+        rv.setHasFixedSize(true)
 
-        card1.setOnClickListener {
+        val gm= LinearLayoutManager(this)
+        gm.orientation=RecyclerView.VERTICAL
+        rv.layoutManager=gm
 
-            val i = Intent(this,DetailActivity::class.java)
-            startActivity(i)
+        list = mutableListOf(
+            DashboardModel("Plain Black Tshirt","Allen Solly",40,15,R.drawable.item_1),
+            DashboardModel("Perfume","Shalimar",10,50,R.drawable.perfume3),
+            DashboardModel("Sneakers","Nike",25,140,R.drawable.show),
+            DashboardModel("Black Sun-glass","Ray Ban",15,70,R.drawable.sunglass1),
+            DashboardModel("Dress Watch","Omega",5,150,R.drawable.watch2),
+            DashboardModel("Blue Jeans","Lee Cooper",20,35,R.drawable.jeans))
+
+        adp = DashboardAdapter(this,list)
+        rv.adapter = adp
+
+
+        fabMenu = findViewById(R.id.fabMenu)
+        fabWishlist = findViewById(R.id.fabWishList)
+        fabProfile = findViewById(R.id.fabProfile)
+        fabCart = findViewById(R.id.fabCart)
+
+        var fabVisible = true
+
+        fabWishlist.setOnClickListener {
+            val intent = Intent(this,WishlistActivity::class.java)
+            startActivity(intent)
         }
 
-        card2.setOnClickListener {
-
-            val i = Intent(this,DetailActivity2::class.java)
-            startActivity(i)
+        fabCart.setOnClickListener {
+            val intent = Intent(this,CartActivity::class.java)
+            startActivity(intent)
         }
 
-        card3.setOnClickListener {
-
-            val i = Intent(this,DetailActivity3::class.java)
-            startActivity(i)
+        fabProfile.setOnClickListener {
+            val intent = Intent(this,ProfileActivity::class.java)
+            startActivity(intent)
         }
 
-        navBar = findViewById(R.id.bottomNav)
-        navBar.setOnItemSelectedListener{
-            when(it.itemId)
+        fabMenu.setOnClickListener {
+            if(fabVisible==false)
             {
-                R.id.menu_wishlist -> {
-                    val i = Intent(this,WishlistActivity::class.java)
-                    startActivity(i)
-                    true
-                }
-                R.id.menu_cart -> {
-                    val j = Intent(this,CartActivity::class.java)
-                    startActivity(j)
-                    true
-                }
-                R.id.menu_profile -> {
-                    val k = Intent(this,ProfileActivity::class.java)
-                    startActivity(k)
-                    true
-                }
+                fabWishlist.show()
+                fabCart.show()
+                fabProfile.show()
+                fabWishlist.visibility = View.VISIBLE
+                fabProfile.visibility = View.VISIBLE
+                fabCart.visibility = View.VISIBLE
+                fabMenu.setImageDrawable(resources.getDrawable(R.drawable.baseline_cancel_24))
+                fabVisible = true
 
-                else -> {true}
+
+            }
+            else
+            {
+                fabWishlist.hide()
+                fabCart.hide()
+                fabProfile.hide()
+                fabWishlist.visibility = View.GONE
+                fabProfile.visibility = View.GONE
+                fabCart.visibility = View.GONE
+                fabMenu.setImageDrawable(resources.getDrawable(R.drawable.baseline_menu_24))
+                fabVisible = false
+
             }
         }
 
@@ -140,4 +173,5 @@ class DashboardScreenActivity : AppCompatActivity() {
                 .setAutoCancel(true)
         }
     }
+
 }

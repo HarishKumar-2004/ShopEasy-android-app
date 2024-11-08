@@ -1,6 +1,5 @@
 package com.example.shopify_app
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
@@ -8,7 +7,6 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -16,10 +14,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat
+
 
 class CartActivity : AppCompatActivity() {
 
@@ -36,10 +31,18 @@ class CartActivity : AppCompatActivity() {
     lateinit var decr2 : TextView
     lateinit var decr3 : TextView
 
+    private lateinit var addressArrow : ImageView
+
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
+
+        addressArrow = findViewById(R.id.imageView36)
+        addressArrow.setOnClickListener {
+            val intent = Intent(this@CartActivity,AddressActivity::class.java)
+            startActivity(intent)
+        }
 
         val backBtn = findViewById<ImageView>(R.id.imageView34)
         backBtn.setOnClickListener {
