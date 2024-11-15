@@ -47,6 +47,7 @@ class ProfileActivity : AppCompatActivity() {
         addressButton.setOnClickListener {
             val i = Intent(this,AddressActivity::class.java)
             startActivity(i)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         profilePicture.setOnClickListener {
@@ -54,14 +55,15 @@ class ProfileActivity : AppCompatActivity() {
             startActivityForResult(intent,PICK_IMAGE)
         }
 
-        tv.text = username
-        tv2.text = "$username@gmail.com"
+        tv.text = username?.substringBefore("@")
+        tv2.text = username
 
         backButton = findViewById(R.id.profileButton6)
 
         backButton.setOnClickListener {
             val x = Intent(this,DashboardScreenActivity::class.java)
             startActivity(x)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
     }
 

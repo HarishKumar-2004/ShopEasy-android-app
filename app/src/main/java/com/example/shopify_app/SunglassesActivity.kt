@@ -16,6 +16,7 @@ class SunglassesActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             val i = Intent(this,DashboardScreenActivity::class.java)
             startActivity(i)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
     }
 }

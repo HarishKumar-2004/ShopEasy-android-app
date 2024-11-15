@@ -11,9 +11,17 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.shopify_app.Adapter.CartAdapter
+import com.example.shopify_app.Database.DatabaseHelper
+import com.example.shopify_app.Model.CartItem
+import com.example.shopify_app.Model.ItemDetail
 
 
 class CartActivity : AppCompatActivity() {
@@ -24,16 +32,15 @@ class CartActivity : AppCompatActivity() {
     private lateinit var pendingIntent: PendingIntent
     private val notificationId = 101
 
-    lateinit var incr1 : TextView
-    lateinit var incr2 : TextView
-    lateinit var incr3 : TextView
-    lateinit var decr1 : TextView
-    lateinit var decr2 : TextView
-    lateinit var decr3 : TextView
 
     private lateinit var addressArrow : ImageView
 
-    @SuppressLint("SetTextI18n")
+    private lateinit var rv : RecyclerView
+    private lateinit var adp : CartAdapter
+
+    private lateinit var db : DatabaseHelper
+
+    @SuppressLint("SetTextI18n", "MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart)
@@ -42,32 +49,42 @@ class CartActivity : AppCompatActivity() {
         addressArrow.setOnClickListener {
             val intent = Intent(this@CartActivity,AddressActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         val backBtn = findViewById<ImageView>(R.id.imageView34)
         backBtn.setOnClickListener {
             val j = Intent(this,DashboardScreenActivity::class.java)
             startActivity(j)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
 
-        incr1 = findViewById(R.id.textView39)
-        decr1 = findViewById(R.id.textView40)
-        incr2 = findViewById(R.id.textView43)
-        decr2 = findViewById(R.id.textView44)
-        incr3 = findViewById(R.id.textView49)
-        decr3 = findViewById(R.id.textView50)
+        rv = findViewById(R.id.cartRecyclerView)
+        rv.setHasFixedSize(true)
+        rv.layoutManager = LinearLayoutManager(this)
 
-        val q1 = findViewById<TextView>(R.id.textView41)
-        val st1 = findViewById<TextView>(R.id.textView38)
-        val p1 = findViewById<TextView>(R.id.textView37)
+        db = DatabaseHelper(this)
+        var cartItems = mutableListOf<ItemDetail>()
+        cartItems = db.getAllItemDetails().toMutableList()
 
-        val q3 = findViewById<TextView>(R.id.textView48)
-        val st3 = findViewById<TextView>(R.id.textView51)
-        val p3 = findViewById<TextView>(R.id.textView52)
+        try {
+            if (cartItems.isEmpty()) {
+                Toast.makeText(this, "Your cart is empty!!", Toast.LENGTH_SHORT).show()
+            }
 
-        val q2 = findViewById<TextView>(R.id.textView42)
-        val st2 = findViewById<TextView>(R.id.textView45)
-        val p2 = findViewById<TextView>(R.id.textView46)
+            adp = CartAdapter(this@CartActivity,cartItems)
+            rv.adapter = adp
+        }
+        catch (e : Exception)
+        {
+            Log.e("CartActivity", "Error in CartActivity: ${e.message}")
+            e.printStackTrace()
+            Toast.makeText(this, "Failed to load cart items!", Toast.LENGTH_SHORT).show()
+        }
+
+//        cartList.add(CartItem("Nike Sneakers",140,140,1,R.drawable.show))
+//        cartList.add(CartItem("Red Shacket",55,55,1,R.drawable.top_wear))
+//        cartList.add(CartItem("Wrist watch",200,200,1,R.drawable.watch3))
 
         val subTotal = findViewById<TextView>(R.id.textView56)
         val delivery = findViewById<TextView>(R.id.textView58)
@@ -77,79 +94,16 @@ class CartActivity : AppCompatActivity() {
         delivery.text = "20$"
         taxes.text = "10$"
 
-        var res = ((st1.text.toString().toInt()) + (st2.text.toString().toInt()) + (st3.text.toString().toInt())).toString()
+        var res : Int = 0
+        for(data in cartItems)
+        {
+            res = res + data.totalPrice
+        }
         subTotal.text = "$res$"
-        var res2 = (20 + 10 + (res.toInt()))
+        val res2 = (20 + 10 + (res.toInt()))
         total.text = "$res2$"
 
-        var q = (q1.text.toString().toInt())
-        val p = (p1.text.toString().toInt())
 
-        incr1.setOnClickListener {
-            q += 1
-            q1.text = (q).toString()
-            st1.text = ((q) * (p)).toString()
-            res = ((st1.text.toString().toInt()) + (st2.text.toString().toInt()) + (st3.text.toString().toInt())).toString()
-            subTotal.text = "$res$"
-            res2 = (20 + 10 + (res.toInt()))
-            total.text = "$res2$"
-        }
-
-        decr1.setOnClickListener {
-            q -= 1
-            q1.text = (q).toString()
-            st1.text = ((q) * (p)).toString()
-            res = ((st1.text.toString().toInt()) + (st2.text.toString().toInt()) + (st3.text.toString().toInt())).toString()
-            subTotal.text = "$res$"
-            res2 = (20 + 10 + (res.toInt()))
-            total.text = "$res2$"
-        }
-
-        var a = (q2.text.toString().toInt())
-        val b = (p2.text.toString().toInt())
-
-        incr2.setOnClickListener {
-            a += 1
-            q2.text = (a).toString()
-            st2.text = ((a)*(b)).toString()
-            res = ((st1.text.toString().toInt()) + (st2.text.toString().toInt()) + (st3.text.toString().toInt())).toString()
-            subTotal.text = "$res$"
-            res2 = (20 + 10 + (res.toInt()))
-            total.text = "$res2$"
-        }
-
-        decr2.setOnClickListener {
-            a -= 1
-            q2.text = (a).toString()
-            st2.text = ((a)*(b)).toString()
-            res = ((st1.text.toString().toInt()) + (st2.text.toString().toInt()) + (st3.text.toString().toInt())).toString()
-            subTotal.text = "$res$"
-            res2 = (20 + 10 + (res.toInt()))
-            total.text = "$res2$"
-        }
-
-        var c = (q3.text.toString().toInt())
-        val d = (p3.text.toString().toInt())
-
-        incr3.setOnClickListener {
-            c += 1
-            q3.text = (c).toString()
-            st3.text = ((c)*(d)).toString()
-            res = ((st1.text.toString().toInt()) + (st2.text.toString().toInt()) + (st3.text.toString().toInt())).toString()
-            subTotal.text = "$res$"
-            res2 = (20 + 10 + (res.toInt()))
-            total.text = "$res2$"
-        }
-
-        decr3.setOnClickListener {
-            c -= 1
-            q3.text = (c).toString()
-            st3.text = ((c)*(d)).toString()
-            res = ((st1.text.toString().toInt()) + (st2.text.toString().toInt()) + (st3.text.toString().toInt())).toString()
-            subTotal.text = "$res$"
-            res2 = (20 + 10 + (res.toInt()))
-            total.text = "$res2$"
-        }
 
         val order = findViewById<Button>(R.id.orderButton)
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

@@ -13,16 +13,12 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
-import androidx.cardview.widget.CardView
-import androidx.core.content.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.shopify_app.Adapter.DashboardAdapter
+import com.example.shopify_app.Model.DashboardModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class DashboardScreenActivity : AppCompatActivity() {
@@ -38,6 +34,9 @@ class DashboardScreenActivity : AppCompatActivity() {
     private lateinit var fabCart : FloatingActionButton
     private lateinit var fabProfile : FloatingActionButton
     lateinit var textV : TextView
+    private lateinit var viewAllText: TextView
+
+    private lateinit var searchBar : TextView
 
     private lateinit var rv : RecyclerView
     private lateinit var adp : DashboardAdapter
@@ -60,6 +59,18 @@ class DashboardScreenActivity : AppCompatActivity() {
         textV = findViewById(R.id.textView3)
         textV.text = username
 
+        viewAllText = findViewById(R.id.viewAllTextView)
+        viewAllText.setOnClickListener {
+            startActivity(Intent(this@DashboardScreenActivity,SearchActivity::class.java))
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+
+        searchBar = findViewById(R.id.searchText)
+        searchBar.setOnClickListener{
+            startActivity(Intent(this@DashboardScreenActivity,SearchActivity::class.java))
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
+
         rv = findViewById(R.id.recyclerView)
         rv.setHasFixedSize(true)
 
@@ -73,7 +84,8 @@ class DashboardScreenActivity : AppCompatActivity() {
             DashboardModel("Sneakers","Nike",25,140,R.drawable.show),
             DashboardModel("Black Sun-glass","Ray Ban",15,70,R.drawable.sunglass1),
             DashboardModel("Dress Watch","Omega",5,150,R.drawable.watch2),
-            DashboardModel("Blue Jeans","Lee Cooper",20,35,R.drawable.jeans))
+            DashboardModel("Blue Jeans","Lee Cooper",20,35,R.drawable.jeans)
+        )
 
         adp = DashboardAdapter(this,list)
         rv.adapter = adp
@@ -89,16 +101,19 @@ class DashboardScreenActivity : AppCompatActivity() {
         fabWishlist.setOnClickListener {
             val intent = Intent(this,WishlistActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         fabCart.setOnClickListener {
             val intent = Intent(this,CartActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         fabProfile.setOnClickListener {
             val intent = Intent(this,ProfileActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         fabMenu.setOnClickListener {
@@ -141,6 +156,7 @@ class DashboardScreenActivity : AppCompatActivity() {
 
             val y = Intent(this,SunglassesActivity::class.java)
             startActivity(y)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
     }
 

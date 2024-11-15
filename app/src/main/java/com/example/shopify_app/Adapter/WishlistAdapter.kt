@@ -1,4 +1,4 @@
-package com.example.shopify_app
+package com.example.shopify_app.Adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shopify_app.Model.WishlistModel
+import com.example.shopify_app.R
 
 class WishlistAdapter(var c: Context, var l:MutableList<WishlistModel>,
-                      var listener:RecyclerViewEvent) :
+                      var listener: RecyclerViewEvent
+) :
     RecyclerView.Adapter<WishlistAdapter.MyHolder>() {
 
     inner class MyHolder(v: View): RecyclerView.ViewHolder(v), View.OnClickListener

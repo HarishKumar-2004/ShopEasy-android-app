@@ -1,17 +1,19 @@
-package com.example.shopify_app
+package com.example.shopify_app.Adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shopify_app.Model.DashboardModel
+import com.example.shopify_app.R
 
 class DashboardAdapter(var c: Context, var l:MutableList<DashboardModel>) :
     RecyclerView.Adapter<DashboardAdapter.MyHolder>()
 {
+
     inner class MyHolder(v: View): RecyclerView.ViewHolder(v)
     {
         var nameText = v.findViewById<TextView>(R.id.nameTextView)
@@ -33,11 +35,13 @@ class DashboardAdapter(var c: Context, var l:MutableList<DashboardModel>) :
 
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
 
-        holder.nameText.text = l[position].name
-        holder.discountText.text = "${l[position].discount} %"
-        holder.priceText.text = "${l[position].price} $"
-        holder.brandText.text = l[position].brand
-        holder.img.setImageResource(l[position].img)
+        val item = l[position]
+
+        holder.nameText.text = item.name
+        holder.discountText.text = "${item.discount} %"
+        holder.priceText.text = "${item.price} $"
+        holder.brandText.text = item.brand
+        holder.img.setImageResource(item.img)
     }
     
 }

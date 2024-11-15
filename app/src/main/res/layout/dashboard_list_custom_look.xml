@@ -4,16 +4,15 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:clickable="true"
+    android:padding="6dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         app:cardCornerRadius="30dp"
-        android:clickable="true"
-        android:backgroundTint="@color/lavender"
-        app:cardElevation="20dp">
+        android:backgroundTint="@color/lavender">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -75,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Price : "
-                android:layout_marginStart="200dp"
+                android:layout_marginStart="190dp"
                 android:layout_marginTop="70dp"
                 android:textStyle="bold" />
 
@@ -84,16 +83,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="15$"
-                android:layout_marginStart="245dp"
+                android:layout_marginStart="235dp"
                 android:layout_marginTop="70dp"
                 android:textColor="@color/white" />
 
             <ImageView
                 android:id="@+id/itemImageView"
                 android:layout_width="90dp"
-                android:layout_height="90dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:layout_marginStart="290dp"
+                android:layout_marginStart="270dp"
                 android:src="@drawable/item_1" />
         </RelativeLayout>
 

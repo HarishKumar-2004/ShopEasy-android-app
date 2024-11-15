@@ -54,6 +54,7 @@ class AddressActivity : AppCompatActivity(), OnMapReadyCallback {
         backArrow = findViewById(R.id.backArrowImage)
         backArrow.setOnClickListener {
             startActivity(Intent(this@AddressActivity,ProfileActivity::class.java))
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
     }
 
@@ -79,7 +80,7 @@ class AddressActivity : AppCompatActivity(), OnMapReadyCallback {
                     val intent = Intent(this,ProfileActivity::class.java)
                     startActivity(intent)
                     finish()
-                },5000)
+                },4000)
         }
     }
 

@@ -22,6 +22,7 @@ class DetailActivity3 : AppCompatActivity() {
         back.setOnClickListener {
             val i = Intent(this,WishlistActivity::class.java)
             startActivity(i)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
 
         rateButton.setOnClickListener {
