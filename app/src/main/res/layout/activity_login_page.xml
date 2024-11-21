@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:textColor="@color/white"
-        android:text="Welcome to Shopify"/>
+        android:text="Welcome to ShopEasy"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
